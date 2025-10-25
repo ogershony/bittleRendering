@@ -1,0 +1,28 @@
+<mujoco model="bittle scene">
+   <compiler angle="radian" autolimits="true"/>
+
+   <option iterations="3" ls_iterations="5" solver="Newton" tolerance="1e-8" timestep="0.001">
+     <flag eulerdamp="disable"/>
+   </option>
+
+  <!-- Assets-->
+
+  <!-- Scene -->
+  <include file="scene.xml"/> 
+
+  
+  <!-- Scene Objects -->
+  <worldbody>
+    <camera name="fixed" pos="0 0 5" quat="1 0 0 0" fovy="45"/>
+
+ 
+
+    <!-- Bittle URDF/MJCF -->
+
+   
+  </worldbody>
+
+
+
+ 
+</mujoco>
