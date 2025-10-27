@@ -1,27 +1,20 @@
 import mujoco
 import mujoco.viewer
 
+import sys
 import os
+
+from model_converter import convert_to_MJCF
 from init import logger
 import constants
 
-'''
-Converts URDF model to MJCF, which is Mujoco compatible
-'''
-def convertToMJCF(URDF_PATH, MJCF_PATH):
-    # Loads URDF model into memory and saves as MJCF
-    model = mujoco.MjModel.from_xml_path(URDF_PATH)
-    mujoco.mj_saveLastXML(MJCF_PATH, model)
-
-    logger.info(f"Converted URDF to MJCF and saved to {MJCF_PATH}")
-    logger.info(f"Model stats: {model.nbody} bodies, {model.njnt} joints, "
-                f"{model.nv} DOF, {model.nu} actuators, {model.nmesh} meshes")
 
 if __name__ == "__main__":
     # If MJCF file does not exist, convert from URDF
-    if not os.path.exists(constants.BITTLE_MJCF_PATH):
-        logger.info("MJCF file not found, converting from URDF...")
-        convertToMJCF(constants.BITTLE_URDF_PATH, constants.BITTLE_MJCF_PATH)
+    if not os.path.exists(constants.BITTLE_MJCF_ASSETS_PATH) or not os.path.exists(constants.BITTLE_MJCF_BODY_PATH):
+        logger.info("MJCF asset and body files not found, converting from URDF...")
+        convert_to_MJCF(constants.BITTLE_URDF_PATH, constants.BITTLE_MJCF_PATH, 
+        constants.BITTLE_MJCF_ASSETS_PATH, constants.BITTLE_MJCF_BODY_PATH)
     else:
         logger.info("MJCF file exists, proceeding to visualization")
 
